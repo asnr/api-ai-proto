@@ -32,7 +32,8 @@ def webhook():
 
 
 def processRequest(req):
-    if req['result']['action'] == 'smalltalk.person':
+    action = req['result']['action']
+    if action.startswith('smalltalk'):
         reply = req['result']['fulfillment']['speech']
         return {
             'speech': reply,

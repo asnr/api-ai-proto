@@ -32,8 +32,17 @@ def webhook():
 
 
 def processRequest(req):
+    if req['result']['action'] == 'smalltalk.person':
+        reply = req['result']['fulfillment']['speech']
+        return {
+            'speech': reply,
+            'displayText': reply,
+            'source': 'api-ai-proto-webhook',
+        }
+
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
+
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
     yql_query = makeYqlQuery(req)
     if yql_query is None:
